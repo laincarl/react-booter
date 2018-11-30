@@ -16,7 +16,7 @@ module.exports = {
     app: [
       'webpack-dev-server/client?http://localhost:3000/',
       'webpack/hot/only-dev-server', 'babel-polyfill',
-      path.resolve(ROOT_DIR, './src/index.js'),
+      path.resolve(ROOT_DIR, './lib/index.js'),
     ],
     // vendor: ['react', 'react-dom'], //分离第三方库
   },

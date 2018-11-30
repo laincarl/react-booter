@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
+const exec = promisify(require('child_process').exec);
 
 const AppTemplate = path.resolve(__dirname, '../template/App.template.js');
 const AppTargetPath = path.resolve(__dirname, '../src/App.js');
@@ -18,7 +19,7 @@ function mainExist() {
     fs.accessSync(mainPath, fs.constants.R_OK | fs.constants.W_OK);
     return true;
   } catch (err) {
-    console.log('main文件不存在');   
+    // console.log('main文件不存在');   
     return false;
   }
 }
@@ -39,11 +40,18 @@ async function CreateFiles(originPath, targetPath, replaceCode) {
 
 
 async function initMain() {
-  console.log(mainExist());
-  const imports = mainExist() ? [`import Project from '${escapeWinPath(mainPath)}';`] : ['']; 
-  const routes = mainExist() ? ['<Project />'] : ['<div>react booter</div>'];
+  const hasMain = mainExist();
+  if (!hasMain) {
+    console.log('main文件不存在');
+  }
+  const imports = hasMain ? [`import Project from '${escapeWinPath(mainPath)}';`] : ['']; 
+  const routes = hasMain ? ['<Project />'] : ['<div>react booter</div>'];
   await CreateFiles(AppTemplate, AppTargetPath, { imports, routes });
-  console.log('init success!');
+  const { stdout, stderr } = await exec('npm run compile');
+  if (stderr) {
+    console.log(stderr);
+  }
+  // console.log('stdout:', stdout);
 }
 
 

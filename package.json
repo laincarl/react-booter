@@ -1,6 +1,6 @@
 {
   "name": "react-booter",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "a booter for react",
   "main": "index.js",
   "bin": {
@@ -18,8 +18,9 @@
     "theme.less"
   ],
   "scripts": {
-    "compile": "babel src -d lib",
-    "start": "node ./bin/react-booter-start"
+    "compile": "babel src -d lib --copy-files",  
+    "start": "node ./bin/react-booter-start",
+    "prepublish": "npm run compile"
   },
   "author": "",
   "license": "ISC",

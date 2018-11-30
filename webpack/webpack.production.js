@@ -6,7 +6,7 @@ const baseConfig = require('./webpack.config');
 const ROOT_DIR = path.resolve(__dirname, '../');
 module.exports = merge(baseConfig, {
   mode: 'production',
-  entry: path.resolve(ROOT_DIR, './src/index.js'), 
+  entry: path.resolve(ROOT_DIR, './lib/index.js'), 
   devtool: false, 
   plugins: [
     new webpack.LoaderOptionsPlugin({
