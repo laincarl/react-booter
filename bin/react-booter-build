@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+
+const config = require('../webpack/webpack.production');
+const webpack = require('webpack');
+
+webpack(config, (err, stats) => {
+  if (err !== null) {
+    console.log(err);
+  } else if (stats.hasErrors()) {
+    console.log(stats.toString('errors-only'));
+  }
+});
+
