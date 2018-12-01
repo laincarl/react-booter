@@ -1,6 +1,6 @@
 {
   "name": "react-booter",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "a booter for react",
   "main": "index.js",
   "bin": {
@@ -8,6 +8,7 @@
   },
   "files": [
     "bin",
+    "lib",
     "src",
     "utils",
     "webpack",
