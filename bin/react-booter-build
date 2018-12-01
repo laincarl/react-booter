@@ -2,7 +2,7 @@
 
 const config = require('../webpack/webpack.production');
 const webpack = require('webpack');
-const initMain = require('./initMain');
+const initMain = require('../utils/initMain');
 
 initMain().then(() => {
   webpack(config, (err, stats) => {

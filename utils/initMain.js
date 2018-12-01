@@ -1,10 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
-const exec = promisify(require('child_process').exec);
 
 const AppTemplate = path.resolve(__dirname, '../template/App.template.js');
 const AppTargetPath = path.resolve(__dirname, '../src/App.js');
+const compileApp = require('./compile');
 // const packageInfo = require(getPackagePath(module));
 // Object.assign(dependencies, packageInfo.dependencies);
 
@@ -46,11 +46,10 @@ async function initMain() {
   }
   const imports = hasMain ? [`import Project from '${escapeWinPath(mainPath)}';`] : ['']; 
   const routes = hasMain ? ['<Project />'] : ['<div>react booter</div>'];
-  await CreateFiles(AppTemplate, AppTargetPath, { imports, routes });
-  const { stdout, stderr } = await exec('npm run compile');
-  if (stderr) {
-    console.log(stderr);
-  }
+  await CreateFiles(AppTemplate, AppTargetPath, { imports, routes }); 
+  console.log('App.js初始化成功，开始编译');
+  await compileApp();
+  console.log('App.js编译成功');
   // console.log('stdout:', stdout);
 }
 

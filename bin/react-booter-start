@@ -4,7 +4,7 @@ const WebpackDevServer = require('webpack-dev-server');
 const config = require('../webpack/webpack.config');
 const serverConfig = require('../webpack/serverConfig');
 const webpack = require('webpack');
-const initMain = require('./initMain');
+const initMain = require('../utils/initMain');
 
 initMain().then(() => {
   const compiler = webpack(config);
