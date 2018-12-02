@@ -1,13 +1,21 @@
 // babel之所以采用这种方法配置是因为babel在npm link本地调试时，babel-core@6.1.21后的版本babel会找不到presets和plugins
-module.exports = function getBabelConfig() {
+// 升级babel7之后发现单独编译文件带有react-hot-loader会报错
+module.exports = function getBabelConfig(api, withoutHot) {
+  // babel/cli调用时会传api参数
+  if (api) {
+    api.cache(false);
+  }
   const presets = [
-    'babel-preset-es2015',
-    'babel-preset-react', 
-    'babel-preset-stage-1',
+    '@babel/preset-env',
+    '@babel/preset-react',
   ].map(require.resolve);
   const plugins = [
-    require.resolve('babel-plugin-transform-decorators-legacy'), 
-    require.resolve('react-hot-loader/babel'),
+    require.resolve('@babel/plugin-syntax-dynamic-import'),
+    require.resolve('@babel/plugin-proposal-class-properties'),
+    require.resolve('@babel/plugin-proposal-export-namespace-from'),
+    require.resolve('@babel/plugin-proposal-export-default-from'),
+    require.resolve('@babel/plugin-proposal-logical-assignment-operators'),
+    require.resolve('@babel/plugin-proposal-optional-chaining'),
     [
       require.resolve('babel-plugin-import'),
       {
@@ -15,7 +23,10 @@ module.exports = function getBabelConfig() {
         style: true,
       },
     ],
-  ];  
+  ];
+  if (!withoutHot) {
+    plugins.push(require.resolve('react-hot-loader/babel'));
+  }
   return {
     presets,
     plugins,

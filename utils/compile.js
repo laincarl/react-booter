@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { transform } = require('babel-core');
+const { transformSync } = require('@babel/core');
 const { promisify } = require('util');
 
 const readFile = promisify(fs.readFile);
@@ -12,7 +12,7 @@ const getBabelConfig = require('../config/babel.config');
 async function compile(params) {
   try {
     const data = await readFile(src, 'utf8');
-    const { code } = transform(data, getBabelConfig());
+    const { code } = transformSync(data, getBabelConfig(null, true));
     await writeFile(dest, code);
   } catch (error) {
     console.log('App.js编译错误:', error);
