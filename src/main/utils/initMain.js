@@ -1,12 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
+import fs from 'fs';
+import path from 'path';
+import { promisify } from 'util';
+import compileApp from './compile';
 
-const AppTemplate = path.resolve(__dirname, '../template/App.template.js');
-const AppTargetPath = path.resolve(__dirname, '../src/App.js');
-const compileApp = require('./compile');
-// const packageInfo = require(getPackagePath(module));
-// Object.assign(dependencies, packageInfo.dependencies);
+const AppTemplate = path.resolve(__dirname, '../../../template/App.template.js');
+const AppTargetPath = path.resolve(__dirname, '../../entry/App.js');
 
 const packagePath = path.resolve(process.cwd(), 'package.json');
 const packageInfo = require(packagePath);
@@ -14,6 +12,7 @@ const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 const { main } = packageInfo;
 const mainPath = path.resolve(process.cwd(), main);
+
 function mainExist() {
   try {
     fs.accessSync(mainPath, fs.constants.R_OK | fs.constants.W_OK);
@@ -49,8 +48,6 @@ async function initMain() {
   await CreateFiles(AppTemplate, AppTargetPath, { imports, routes }); 
   console.log('App.js初始化成功，开始编译');
   await compileApp();
-  console.log('App.js编译成功');
-  // console.log('stdout:', stdout);
 }
 
 

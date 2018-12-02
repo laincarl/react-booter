@@ -8,19 +8,16 @@
   },
   "files": [
     "bin",
-    "lib",
-    "src",
-    "utils",
-    "webpack",
+    "dist",
     "config",
     "template",
-    "index.ejs",
-    "favicon.ico",
     "config.js",
     "theme.less"
   ],
   "scripts": {
-    "compile": "babel src -d lib --copy-files --config-file ./config/babel.config.js",
+    "compileReact": "babel src/entry -d dist/entry --copy-files --config-file ./config/babel.config.js",
+    "compileNode": "babel src/main -d dist/main --copy-files --config-file ./config/babel.config.node.js",
+    "compile": "npm run compileNode && npm run compileReact",
     "start": "node ./bin/react-booter-start",
     "prepublish": "npm run compile"
   },
@@ -39,6 +36,7 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "axios": "^0.18.0",
     "babel-loader": "^8.0.0",
     "babel-plugin-import": "^1.11.0",

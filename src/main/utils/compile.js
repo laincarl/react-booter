@@ -5,15 +5,16 @@ const { promisify } = require('util');
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
-const src = path.resolve(__dirname, '../src/App.js');
-const dest = path.resolve(__dirname, '../lib/App.js');
-const getBabelConfig = require('../config/babel.config');
+const src = path.resolve(__dirname, '../../entry/App.js');
+const dest = path.resolve(__dirname, '../../../dist/entry/App.js');
+const getBabelConfig = require('../../../config/babel.config');
 
 async function compile(params) {
   try {
     const data = await readFile(src, 'utf8');
     const { code } = transformSync(data, getBabelConfig(null, true));
     await writeFile(dest, code);
+    console.log('App.js编译成功');
   } catch (error) {
     console.log('App.js编译错误:', error);
   }

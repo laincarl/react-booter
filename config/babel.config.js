@@ -14,7 +14,6 @@ module.exports = function getBabelConfig(api, withoutHot) {
     require.resolve('@babel/plugin-proposal-class-properties'),
     require.resolve('@babel/plugin-proposal-export-namespace-from'),
     require.resolve('@babel/plugin-proposal-export-default-from'),
-    require.resolve('@babel/plugin-proposal-logical-assignment-operators'),
     require.resolve('@babel/plugin-proposal-optional-chaining'),
     [
       require.resolve('babel-plugin-import'),

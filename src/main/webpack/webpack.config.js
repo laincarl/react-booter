@@ -1,30 +1,28 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const getBabelConfig = require('../config/babel.config');
+const getBabelConfig = require('../../../config/babel.config');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // const LessThemePlugin = require('webpack-less-theme-plugin');
 // const moment = require('moment');
 
-const ROOT_DIR = path.resolve(__dirname, '../');
+const ROOT_DIR = path.resolve(__dirname, '../../../');
 const PROJECT_ROOT = process.cwd();
 
 module.exports = {
   mode: 'development',
   devtool: 'cheap-module-eval-source-map',
-  // devtool: 'eval',
   entry: {
     app: [
       'webpack-dev-server/client?http://localhost:3000/',
       'webpack/hot/only-dev-server', '@babel/polyfill',
-      path.resolve(ROOT_DIR, './lib/index.js'),
+      path.resolve(ROOT_DIR, './dist/entry/index.js'),
     ],
     // vendor: ['react', 'react-dom'], //分离第三方库
   },
   output: {
     path: path.resolve(PROJECT_ROOT, 'dist'), // 输出至项目目录
     publicPath: '/', // 以保证资源路径正确。
-    // publicPath: process.cwd(),
     filename: 'app/[name]_[hash:8].js',
     chunkFilename: 'app/chunks/[name].[chunkhash:5].chunk.js',
   },
@@ -193,7 +191,7 @@ module.exports = {
           loader: 'babel-loader',
           options: getBabelConfig(),
           // query: {
-          //   plugins: [['import', { libraryName: 'antd', style: true }]], 
+          //   plugins: [['import', { distraryName: 'antd', style: true }]], 
           // style: true 会加载 less 文件 style: 'css' 会加载 css 文件
           // },
         },
@@ -266,8 +264,8 @@ module.exports = {
       // excludeChunks:['contact'],
       // chunks: ['manifest', 'vendor', 'app'],
       // chunks:['vendor','app'],
-      favicon: path.resolve(ROOT_DIR, './favicon.ico'),
-      template: path.resolve(ROOT_DIR, './index.ejs'), // Load a custom template (ejs by default see the FAQ for details)
+      favicon: path.resolve(ROOT_DIR, './template/favicon.ico'),
+      template: path.resolve(ROOT_DIR, './template/index.ejs'), // Load a custom template (ejs by default see the FAQ for details)
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.HotModuleReplacementPlugin(),
