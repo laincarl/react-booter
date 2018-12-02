@@ -1,13 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const getBabelConfig = require('../config/babel.config');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // const LessThemePlugin = require('webpack-less-theme-plugin');
 // const moment = require('moment');
 
 const ROOT_DIR = path.resolve(__dirname, '../');
 const PROJECT_ROOT = process.cwd();
-console.log(path.resolve(process.cwd(), 'node_modules'));
+
 module.exports = {
   mode: 'development',
   devtool: 'cheap-module-eval-source-map',
@@ -190,18 +191,7 @@ module.exports = {
         exclude: /node_modules/,
         use: [{
           loader: 'babel-loader',
-          options: {
-            presets: [
-              ['es2015'], 'react', 'stage-1',
-            ],
-            plugins: ['transform-decorators-legacy', 'react-hot-loader/babel', [
-              'import',
-              {
-                libraryName: 'antd',
-                style: true,
-              },
-            ]],
-          },
+          options: getBabelConfig(),
           // query: {
           //   plugins: [['import', { libraryName: 'antd', style: true }]], 
           // style: true 会加载 less 文件 style: 'css' 会加载 css 文件

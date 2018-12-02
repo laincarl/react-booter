@@ -7,12 +7,12 @@ const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 const src = path.resolve(__dirname, '../src/App.js');
 const dest = path.resolve(__dirname, '../lib/App.js');
-const babelConfig = require('../config/babel.config');
+const getBabelConfig = require('../config/babel.config');
 
 async function compile(params) {
   try {
     const data = await readFile(src, 'utf8');
-    const { code } = transform(data, babelConfig);
+    const { code } = transform(data, getBabelConfig());
     await writeFile(dest, code);
   } catch (error) {
     console.log('App.js编译错误:', error);
