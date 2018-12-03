@@ -103,10 +103,10 @@ export default function (devServer) {
             },
             {
               loader: 'css-loader',
-              options: {
-                modules: true,
-                localIdentName: '[name]__[local]___[hash:base64:5]',
-              },
+              // options: {
+              //   modules: true,
+              //   localIdentName: '[name]__[local]___[hash:base64:5]',
+              // },
             },
             {
               loader: 'postcss-loader',
@@ -143,10 +143,10 @@ export default function (devServer) {
             },
             {
               loader: 'css-loader',
-              options: {
-                modules: true,
-                localIdentName: '[name]__[local]___[hash:base64:5]',
-              },
+              // options: {
+              //   modules: true,
+              //   localIdentName: '[name]__[local]___[hash:base64:5]',
+              // },
             },
             {
               loader: 'postcss-loader',
