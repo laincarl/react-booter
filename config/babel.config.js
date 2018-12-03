@@ -11,10 +11,21 @@ module.exports = function getBabelConfig(api, withoutHot) {
   ].map(require.resolve);
   const plugins = [
     require.resolve('@babel/plugin-syntax-dynamic-import'),
-    require.resolve('@babel/plugin-proposal-class-properties'),
     require.resolve('@babel/plugin-proposal-export-namespace-from'),
     require.resolve('@babel/plugin-proposal-export-default-from'),
-    require.resolve('@babel/plugin-proposal-optional-chaining'),
+    require.resolve('@babel/plugin-proposal-optional-chaining'),       
+    [
+      require.resolve('@babel/plugin-proposal-decorators'),
+      {
+        legacy: true,
+      },
+    ],
+    [
+      require.resolve('@babel/plugin-proposal-class-properties'),
+      {
+        loose: true,
+      },
+    ],
     [
       require.resolve('babel-plugin-import'),
       {
