@@ -1,6 +1,6 @@
 {
   "name": "react-booter",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "a booter for react",
   "main": "index.js",
   "bin": {
