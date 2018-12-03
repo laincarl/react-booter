@@ -14,7 +14,7 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: {
     app: [
-      'webpack-dev-server/client?http://localhost:3000/',
+      `webpack-dev-server/client?http://localhost:${process.env.PORT}/`,
       'webpack/hot/only-dev-server', '@babel/polyfill',
       path.resolve(ROOT_DIR, './dist/entry/index.js'),
     ],
