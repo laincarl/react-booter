@@ -1,22 +1,19 @@
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import open from 'opn';
-import merge from 'webpack-merge';
-import getConfig from '../utils/getConfig';
-import getDefaultConfig from '../utils/getDefaultConfig';
 import getWebpackConfig from '../webpack/webpack.config';
 import serverConfig from '../webpack/serverConfig';
 import initMain from '../utils/initMain';
 
 const log = require('loglevel');
 
-const Config = { ...getDefaultConfig(), ...getConfig() };
+const Config = getWebpackConfig();
 
 initMain().then(() => {
   const { devServer } = Config;
   const { port } = devServer;
   process.env.PORT = port;
-  const compiler = webpack(merge(getWebpackConfig(devServer), Config));
+  const compiler = webpack(Config);
   const server = new WebpackDevServer(compiler, { ...serverConfig, ...devServer });  
   server.listen(
     port, 'localhost',
