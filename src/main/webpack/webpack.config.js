@@ -8,7 +8,7 @@ const getBabelConfig = require('../../../config/babel.config');
 
 const ROOT_DIR = path.resolve(__dirname, '../../../');
 const PROJECT_ROOT = process.cwd();
-export default function (devServer) {
+export default function (devServer = {}) {
   const { port } = devServer;
   return {
     mode: 'development',

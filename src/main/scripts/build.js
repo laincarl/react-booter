@@ -1,7 +1,6 @@
-const config = require('../webpack/webpack.production');
-const webpack = require('webpack');
-const initMain = require('../utils/initMain');
-
+import webpack from 'webpack';
+import initMain from '../utils/initMain';
+import config from '../webpack/webpack.production';
 
 initMain().then(() => {
   webpack(config, (err, stats) => {

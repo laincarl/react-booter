@@ -1,10 +1,11 @@
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const path = require('path');
-const getBaseConfig = require('./webpack.config');
+import webpack from 'webpack';
+import merge from 'webpack-merge';
+import path from 'path';
+
+import getBaseConfig from './webpack.config';
 
 const ROOT_DIR = path.resolve(__dirname, '../../../');
-module.exports = merge(getBaseConfig(), {
+export default merge(getBaseConfig(), {
   mode: 'production',
   entry: path.resolve(ROOT_DIR, './dist/entry/index.js'), 
   devtool: false, 

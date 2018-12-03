@@ -1,7 +1,7 @@
 const path = require('path');
 
 const ROOT_DIR = path.resolve(__dirname, '../');
-module.exports = {
+export default {
   inline: false,
   compress: true,
 
