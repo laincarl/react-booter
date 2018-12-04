@@ -17,6 +17,7 @@
   "scripts": {
     "compileReact": "babel src/entry -d dist/entry --copy-files --config-file ./config/babel.config.js",
     "compileNode": "babel src/main -d dist/main --copy-files --config-file ./config/babel.config.node.js",
+    "precompile": "rimraf ./dist/*",
     "compile": "npm run compileNode && npm run compileReact",
     "start": "node ./bin/react-booter-start",
     "prepublish": "npm run compile"
@@ -41,6 +42,7 @@
     "axios": "^0.18.0",
     "babel-loader": "^8.0.0",
     "babel-plugin-import": "^1.11.0",
+    "clean-webpack-plugin": "^1.0.0",
     "commander": "^2.19.0",
     "css-loader": "^1.0.1",
     "extract-text-webpack-plugin": "^3.0.2",

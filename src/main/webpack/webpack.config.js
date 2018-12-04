@@ -253,6 +253,7 @@ export default function () {
       // new webpack.DefinePlugin({
       //   'process.env.BUILD_TIME': JSON.stringify(moment().format('YYYY-MM-DD HH:mm:ss')),
       // }),
+
       new HtmlWebpackPlugin({
         title: '首页',
         inject: true,
@@ -270,7 +271,7 @@ export default function () {
         // chunks:['vendor','app'],
         favicon: path.resolve(ROOT_DIR, './template/favicon.ico'),
         template: path.resolve(ROOT_DIR, './template/index.ejs'), // Load a custom template (ejs by default see the FAQ for details)
-      }),
+      }),      
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.HotModuleReplacementPlugin(),
     ],

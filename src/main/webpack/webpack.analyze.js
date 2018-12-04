@@ -6,12 +6,14 @@
  * @Feature: webpack打包分析 
  */
 
-const merge = require('webpack-merge');
-const proConfig = require('./webpack.production');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+import merge from 'webpack-merge';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import getProductinConfig from './webpack.production';
 
-module.exports = merge(proConfig, {
-  plugins: [
-    new BundleAnalyzerPlugin(),
-  ],
-});
+export default function () {
+  return merge(getProductinConfig(), {
+    plugins: [
+      new BundleAnalyzerPlugin(),
+    ],
+  });
+}
