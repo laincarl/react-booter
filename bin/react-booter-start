@@ -1,4 +1,10 @@
 #!/usr/bin/env node
+const program = require('commander');
+const start = require('../dist/main/scripts/start').default;
 
-require('../dist/main/scripts/start');
-
+program
+  .option('-c, --config <name>', 'Sets the config file')
+  .action((options) => {
+    start(options.config);
+  })
+  .parse(process.argv);

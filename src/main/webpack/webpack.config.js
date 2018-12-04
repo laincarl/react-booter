@@ -4,15 +4,15 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import getBabelConfig from '../../../config/babel.config';
 import getUserConfig from '../utils/getUserConfig';
-import getDefaultConfig from '../utils/getDefaultConfig';
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // const LessThemePlugin = require('webpack-less-theme-plugin');
 // const moment = require('moment');
-const Config = { ...getDefaultConfig(), ...getUserConfig() };
+
 
 const ROOT_DIR = path.resolve(__dirname, '../../../');
 const PROJECT_ROOT = process.cwd();
-export default function () {
+export default function (userConfigFile) {
+  const Config = getUserConfig(userConfigFile);
   return merge(Config, {
     mode: 'development',
     devtool: 'cheap-module-eval-source-map',

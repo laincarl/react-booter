@@ -1,3 +1,10 @@
 #!/usr/bin/env node
+const program = require('commander');
+const build = require('../dist/main/scripts/build').default;
 
-require('../dist/main/scripts/build');
+program
+  .option('-c, --config <name>', 'Sets the config file')
+  .action((options) => {
+    build(options.config);
+  })
+  .parse(process.argv);

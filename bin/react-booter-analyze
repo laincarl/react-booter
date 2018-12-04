@@ -1,3 +1,10 @@
 #!/usr/bin/env node
+const program = require('commander');
+const analyze = require('../dist/main/scripts/analyze').default;
 
-require('../dist/main/scripts/analyze');
+program
+  .option('-c, --config <name>', 'Sets the config file')
+  .action((options) => {
+    analyze(options.config);
+  })
+  .parse(process.argv);
