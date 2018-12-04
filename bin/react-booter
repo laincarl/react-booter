@@ -7,7 +7,8 @@ program
   .version(package.version)
   .usage('[command] [options]')
   .command('start [options]', 'to start a server')
-  .command('build [options]', 'to build and write static files to `config.output`')
+  .command('build [options]', 'to build files`')
+  .command('analyze [options]', 'to analyze build files`')
   .parse(process.argv);
 
 process.on('SIGINT', function() {
