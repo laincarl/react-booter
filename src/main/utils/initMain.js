@@ -48,10 +48,17 @@ async function initMain(userConfigFile) {
   if (!hasMain) {
     console.log('main文件不存在');
   }
-  const imports = hasMain ? `import Project from '${escapeWinPath(mainPath)}';` : ''; 
+  const imports = hasMain ? `import Project from '${escapeWinPath(mainPath)}';` : '';
   const routes = hasMain ? '<Project />' : '<div>react booter</div>';
   // 获取用户定义环境变量
-  const ENVS = JSON.stringify(getUserConfig(userConfigFile).envs);
+  const UserEnvs = getUserConfig(userConfigFile).envs;
+  const EnvStr = Object.keys(getUserConfig(userConfigFile).envs).map((env) => {
+    process.env[env] = JSON.stringify(UserEnvs[env]);
+    return `${env}:process.env.${env} || '${env}'`;
+  });
+  const ENVS = `  {${EnvStr}}`;
+
+  console.log(ENVS);
   await CreateFiles(AppTemplate, AppTargetPath, { imports, routes });
   await CreateFiles(EnvTemplate, EnvTargetPath, {
     ENVS,

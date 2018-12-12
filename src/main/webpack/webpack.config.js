@@ -250,10 +250,10 @@ export default function (userConfigFile) {
       // new LessThemePlugin({ theme: path.resolve(ROOT_DIR, './theme.less') }), // 使antd主题可以热加载
       // new ExtractTextPlugin('styles.css'),    
       // new webpack.HotModuleReplacementPlugin(),
-      new webpack.DefinePlugin({
-        'process.env.API': 'http://localhost',
-      }),
-
+      // new webpack.DefinePlugin({
+      //   'process.env.API': JSON.stringify('http://localhost'),
+      //   'process.env.TEST': JSON.stringify('http://localhost'),
+      // }),
       new HtmlWebpackPlugin({
         title: '首页',
         inject: true,
