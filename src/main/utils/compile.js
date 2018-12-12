@@ -5,21 +5,33 @@ const { promisify } = require('util');
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
-const src = path.resolve(__dirname, '../../entry/App.js');
-const dest = path.resolve(__dirname, '../../../dist/entry/App.js');
+// const src = path.resolve(__dirname, '../../entry/App.js');
+// const dest = path.resolve(__dirname, '../../../dist/entry/App.js');
 const getBabelConfig = require('../../../config/babel.config');
 
-async function compile(params) {
+// const src = path.resolve(__dirname, '../../entry/constants/envs.js');
+// const dest = path.resolve(__dirname, '../../../dist/entry/constants/envs.js');
+const basePath = path.resolve(__dirname, '../../entry');
+const baseTargetPath = path.resolve(__dirname, '../../../dist/entry');
+async function compile(src, dest) {
   try {
     const data = await readFile(src, 'utf8');
     const { code } = transformSync(data, getBabelConfig(null, true));
     await writeFile(dest, code);
-    console.log('App.js编译成功');
+    console.log(`${src}编译成功`);
   } catch (error) {
-    console.log('App.js编译错误:', error);
+    console.log(`${src}编译错误:`, error);
   }
 }
-module.exports = compile;
+async function compileFiles() {
+  const paths = ['App.js', 'constants/envs.js'];
+  const srcPaths = paths.map(p => path.resolve(basePath, p));
+  const targetPaths = paths.map(p => path.resolve(baseTargetPath, p));
+  Promise.all(srcPaths.map(async (src, i) => {
+    await compile(src, targetPaths[i]);
+  }));
+}
+module.exports = compileFiles;
 // (async function compile() {
 //   const files = await traversefolder(src);
 //   Promise.all(files.map(file => new Promise((resolve) => {

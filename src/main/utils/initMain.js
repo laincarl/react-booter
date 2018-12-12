@@ -1,10 +1,15 @@
 import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
-import compileApp from './compile';
+import compileFiles from './compile';
+import getUserConfig from './getUserConfig';
 
-const AppTemplate = path.resolve(__dirname, '../../../template/App.template.js');
-const AppTargetPath = path.resolve(__dirname, '../../entry/App.js');
+const templatePath = path.resolve(__dirname, '../../../template');
+const entryPath = path.resolve(__dirname, '../../entry');
+const AppTemplate = path.resolve(templatePath, 'App.template.js');
+const EnvTemplate = path.resolve(templatePath, 'envs.template.js');
+const AppTargetPath = path.resolve(entryPath, 'App.js');
+const EnvTargetPath = path.resolve(entryPath, 'constants/envs.js');
 
 const packagePath = path.resolve(process.cwd(), 'package.json');
 const packageInfo = require(packagePath);
@@ -38,16 +43,21 @@ async function CreateFiles(originPath, targetPath, replaceCode) {
 }
 
 
-async function initMain() {
+async function initMain(userConfigFile) {
   const hasMain = mainExist();
   if (!hasMain) {
     console.log('main文件不存在');
   }
-  const imports = hasMain ? [`import Project from '${escapeWinPath(mainPath)}';`] : ['']; 
-  const routes = hasMain ? ['<Project />'] : ['<div>react booter</div>'];
-  await CreateFiles(AppTemplate, AppTargetPath, { imports, routes }); 
+  const imports = hasMain ? `import Project from '${escapeWinPath(mainPath)}';` : ''; 
+  const routes = hasMain ? '<Project />' : '<div>react booter</div>';
+  // 获取用户定义环境变量
+  const ENVS = JSON.stringify(getUserConfig(userConfigFile).envs);
+  await CreateFiles(AppTemplate, AppTargetPath, { imports, routes });
+  await CreateFiles(EnvTemplate, EnvTargetPath, {
+    ENVS,
+  });
   console.log('App.js初始化成功，开始编译');
-  await compileApp();
+  await compileFiles();
 }
 
 

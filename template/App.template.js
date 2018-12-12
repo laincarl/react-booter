@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { hot } from 'react-hot-loader';
+
 {%imports%}
 class App extends Component {
   render() {

@@ -1,8 +1,11 @@
 export default function () {
   return {
-    devServer: {
-      port: 3000,
-      open: true,
+    webpack: {
+      devServer: {
+        port: 3000,
+        open: true,
+      },
     },
+    envs: {},
   };
 }

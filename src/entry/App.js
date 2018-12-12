@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { hot } from 'react-hot-loader';
 import Project from 'D:\\Desktop\\todo\\booter\\booter-dev\\src\\index.js';
+
 class App extends Component {
   render() {
-    return <Fragment>
+    return (<Fragment>
       <Project />
-    </Fragment>;
+            </Fragment>);
   }
 }
 export default hot(module)(App);

@@ -9,7 +9,7 @@ const log = require('loglevel');
 
 export default function (userConfigFile) {
   const Config = getWebpackConfig(userConfigFile);
-  initMain().then(() => {
+  initMain(userConfigFile).then(() => {
     const { devServer } = Config;
     const { port } = devServer;
     process.env.PORT = port;

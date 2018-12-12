@@ -12,7 +12,7 @@ import getUserConfig from '../utils/getUserConfig';
 const ROOT_DIR = path.resolve(__dirname, '../../../');
 const PROJECT_ROOT = process.cwd();
 export default function (userConfigFile) {
-  const Config = getUserConfig(userConfigFile);
+  const Config = getUserConfig(userConfigFile).webpack;
   return merge(Config, {
     mode: 'development',
     devtool: 'cheap-module-eval-source-map',
@@ -87,9 +87,9 @@ export default function (userConfigFile) {
         // path.resolve(process.cwd(), 'node_modules/react-booter/node_modules'),     
       ], // 优化webpack文件搜索范围
       extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', '.less'],
-      // alias: {
-      //   '@': ROOT_DIR,
-      // },
+      alias: {
+        ENVS: path.resolve(ROOT_DIR, './dist/entry/constants/envs.js'),
+      },
     },
     // 修复本地npm link调试时loader找不到
     resolveLoader: {
@@ -250,9 +250,9 @@ export default function (userConfigFile) {
       // new LessThemePlugin({ theme: path.resolve(ROOT_DIR, './theme.less') }), // 使antd主题可以热加载
       // new ExtractTextPlugin('styles.css'),    
       // new webpack.HotModuleReplacementPlugin(),
-      // new webpack.DefinePlugin({
-      //   'process.env.BUILD_TIME': JSON.stringify(moment().format('YYYY-MM-DD HH:mm:ss')),
-      // }),
+      new webpack.DefinePlugin({
+        'process.env.API': 'http://localhost',
+      }),
 
       new HtmlWebpackPlugin({
         title: '首页',
@@ -271,7 +271,7 @@ export default function (userConfigFile) {
         // chunks:['vendor','app'],
         favicon: path.resolve(ROOT_DIR, './template/favicon.ico'),
         template: path.resolve(ROOT_DIR, './template/index.ejs'), // Load a custom template (ejs by default see the FAQ for details)
-      }),      
+      }),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.HotModuleReplacementPlugin(),
     ],
