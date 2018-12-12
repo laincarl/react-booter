@@ -52,13 +52,12 @@ async function initMain(userConfigFile) {
   const routes = hasMain ? '<Project />' : '<div>react booter</div>';
   // 获取用户定义环境变量
   const UserEnvs = getUserConfig(userConfigFile).envs;
-  const EnvStr = Object.keys(getUserConfig(userConfigFile).envs).map((env) => {
-    process.env[env] = JSON.stringify(UserEnvs[env]);
-    return `${env}:process.env.${env} || '${env}'`;
-  });
-  const ENVS = `  {${EnvStr}}`;
+  const EnvStr = Object.keys(getUserConfig(userConfigFile).envs).map(env => 
+    // process.env[env] = JSON.stringify(UserEnvs[env]);
+    `${env}:process.env.${env} || '${env}'`);
+  const ENVS = `{${EnvStr}}`;
 
-  console.log(ENVS);
+  console.log(UserEnvs, ENVS);
   await CreateFiles(AppTemplate, AppTargetPath, { imports, routes });
   await CreateFiles(EnvTemplate, EnvTargetPath, {
     ENVS,

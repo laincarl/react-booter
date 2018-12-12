@@ -8,7 +8,7 @@ import initMain from '../utils/initMain';
 const log = require('loglevel');
 
 export default function (userConfigFile) {
-  const Config = getWebpackConfig(userConfigFile);
+  const Config = getWebpackConfig(userConfigFile, true);
   initMain(userConfigFile).then(() => {
     const { devServer } = Config;
     const { port } = devServer;

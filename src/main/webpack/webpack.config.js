@@ -11,8 +11,15 @@ import getUserConfig from '../utils/getUserConfig';
 
 const ROOT_DIR = path.resolve(__dirname, '../../../');
 const PROJECT_ROOT = process.cwd();
-export default function (userConfigFile) {
-  const Config = getUserConfig(userConfigFile).webpack;
+export default function (userConfigFile, dev) {
+  const { envs, webpack: Config } = getUserConfig(userConfigFile);
+  const ENVS = {};
+  if (dev) {
+    Object.keys(envs).forEach((env) => {
+      ENVS[`process.env.${env}`] = JSON.stringify(envs[env]);
+    });
+  }
+  
   return merge(Config, {
     mode: 'development',
     devtool: 'cheap-module-eval-source-map',
@@ -250,10 +257,7 @@ export default function (userConfigFile) {
       // new LessThemePlugin({ theme: path.resolve(ROOT_DIR, './theme.less') }), // 使antd主题可以热加载
       // new ExtractTextPlugin('styles.css'),    
       // new webpack.HotModuleReplacementPlugin(),
-      // new webpack.DefinePlugin({
-      //   'process.env.API': JSON.stringify('http://localhost'),
-      //   'process.env.TEST': JSON.stringify('http://localhost'),
-      // }),
+      new webpack.DefinePlugin(ENVS),
       new HtmlWebpackPlugin({
         title: '首页',
         inject: true,

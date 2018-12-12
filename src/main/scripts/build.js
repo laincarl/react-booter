@@ -3,7 +3,7 @@ import initMain from '../utils/initMain';
 import getProductinConfig from '../webpack/webpack.production';
 
 export default function (userConfigFile) {
-  initMain().then(() => {
+  initMain(userConfigFile).then(() => {
     webpack(getProductinConfig(userConfigFile), (err, stats) => {
       if (err !== null) {
         console.log(err);
