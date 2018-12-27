@@ -194,7 +194,47 @@ export default function (userConfigFile, dev) {
             },
           ],
         },
-
+        {
+          test: /\.scss$/,     
+          exclude: [/node_modules/],    
+          use: [
+            {
+              loader: 'style-loader',
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                autoprefixer: false,
+              },
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                config: {
+                  path: path.resolve(ROOT_DIR, './config'), // 写到目录即可，文件名强制要求是postcss.config.js
+                },
+              },
+            },
+            {
+              loader: 'sass-loader',             
+            },
+          ],
+        },
+        {
+          test: /\.scss$/,    
+          include: [/node_modules/],     
+          use: [
+            {
+              loader: 'style-loader',
+            },
+            {
+              loader: 'css-loader',             
+            },
+            {
+              loader: 'sass-loader',             
+            },
+          ],
+        },
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
