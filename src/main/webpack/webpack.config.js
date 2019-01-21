@@ -11,6 +11,14 @@ import getUserConfig from '../utils/getUserConfig';
 
 const ROOT_DIR = path.resolve(__dirname, '../../../');
 const PROJECT_ROOT = process.cwd();
+const postCssLoader = {
+  loader: 'postcss-loader',
+  options: {
+    config: {
+      path: path.resolve(ROOT_DIR, './config'), // 写到目录即可，文件名强制要求是postcss.config.js
+    },
+  },
+};
 export default function (userConfigFile, dev) {
   const { envs, webpack: Config } = getUserConfig(userConfigFile);
   const ENVS = {};
@@ -19,7 +27,7 @@ export default function (userConfigFile, dev) {
       ENVS[`process.env.${env}`] = JSON.stringify(envs[env]);
     });
   }
-  
+
   return merge(Config, {
     mode: 'development',
     devtool: 'cheap-module-eval-source-map',
@@ -107,133 +115,21 @@ export default function (userConfigFile, dev) {
         {
           test: /\.css$/,
           exclude: /node_modules/,
-          use: [
-            {
-              loader: 'style-loader',
-            },
-            {
-              loader: 'css-loader',
-              // options: {
-              //   modules: true,
-              //   localIdentName: '[name]__[local]___[hash:base64:5]',
-              // },
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                config: {
-                  path: path.resolve(ROOT_DIR, './config'), // 写到目录即可，文件名强制要求是postcss.config.js
-                },
-              },
-            },
-          ],
+          use: ['style-loader', 'css-loader', postCssLoader],
         },
         {
-          test: /\.css$/,
-          include: /node_modules/,
-          use: [
-            {
-              loader: 'style-loader',
+          test: /\.less$/,         
+          use: ['style-loader', 'css-loader', postCssLoader, {
+            loader: 'less-loader',
+            options: {
+              // sourceMap: process.env.NODE_ENV !== 'production',
+              javascriptEnabled: true,
             },
-            {
-              loader: 'css-loader',
-              // options: {
-              //   modules: true,
-              //   localIndexName: '[name]__[local]___[hash:base64:5]',
-              // },
-            },
-          ],
+          }],
         },
         {
-          test: /\.less$/,
-          exclude: [/node_modules/, /theme\.less/],
-          use: [
-            {
-              loader: 'style-loader',
-            },
-            {
-              loader: 'css-loader',
-              // options: {
-              //   modules: true,
-              //   localIdentName: '[name]__[local]___[hash:base64:5]',
-              // },
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                config: {
-                  path: path.resolve(ROOT_DIR, './config'), // 写到目录即可，文件名强制要求是postcss.config.js
-                },
-              },
-            },
-            {
-              loader: 'less-loader',
-              options: {
-                // sourceMap: process.env.NODE_ENV !== 'production',
-                javascriptEnabled: true,
-              },
-            },
-          ],
-        },
-        {
-          test: /\.less$/,
-          include: [/node_modules/, /theme\.less/],
-          use: [
-            {
-              loader: 'style-loader',
-            },
-            {
-              loader: 'css-loader',
-            },
-            {
-              loader: 'less-loader',
-              options: {
-                // sourceMap: process.env.NODE_ENV !== 'production',
-                javascriptEnabled: true,
-              },
-            },
-          ],
-        },
-        {
-          test: /\.scss$/,     
-          exclude: [/node_modules/],    
-          use: [
-            {
-              loader: 'style-loader',
-            },
-            {
-              loader: 'css-loader',
-              options: {
-                autoprefixer: false,
-              },
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                config: {
-                  path: path.resolve(ROOT_DIR, './config'), // 写到目录即可，文件名强制要求是postcss.config.js
-                },
-              },
-            },
-            {
-              loader: 'sass-loader',             
-            },
-          ],
-        },
-        {
-          test: /\.scss$/,    
-          include: [/node_modules/],     
-          use: [
-            {
-              loader: 'style-loader',
-            },
-            {
-              loader: 'css-loader',             
-            },
-            {
-              loader: 'sass-loader',             
-            },
-          ],
+          test: /\.scss$/,         
+          use: ['style-loader', 'css-loader', postCssLoader, 'sass-loader'],
         },
         {
           test: /\.(js|jsx)$/,

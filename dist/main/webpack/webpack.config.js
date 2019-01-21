@@ -25,6 +25,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const ROOT_DIR = _path.default.resolve(__dirname, '../../../');
 
 const PROJECT_ROOT = process.cwd();
+const postCssLoader = {
+  loader: 'postcss-loader',
+  options: {
+    config: {
+      path: _path.default.resolve(ROOT_DIR, './config') // 写到目录即可，文件名强制要求是postcss.config.js
+
+    }
+  }
+};
 
 function _default(userConfigFile, dev) {
   const {
@@ -119,69 +128,10 @@ function _default(userConfigFile, dev) {
       rules: [{
         test: /\.css$/,
         exclude: /node_modules/,
-        use: [{
-          loader: 'style-loader'
-        }, {
-          loader: 'css-loader' // options: {
-          //   modules: true,
-          //   localIdentName: '[name]__[local]___[hash:base64:5]',
-          // },
-
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            config: {
-              path: _path.default.resolve(ROOT_DIR, './config') // 写到目录即可，文件名强制要求是postcss.config.js
-
-            }
-          }
-        }]
-      }, {
-        test: /\.css$/,
-        include: /node_modules/,
-        use: [{
-          loader: 'style-loader'
-        }, {
-          loader: 'css-loader' // options: {
-          //   modules: true,
-          //   localIndexName: '[name]__[local]___[hash:base64:5]',
-          // },
-
-        }]
+        use: ['style-loader', 'css-loader', postCssLoader]
       }, {
         test: /\.less$/,
-        exclude: [/node_modules/, /theme\.less/],
-        use: [{
-          loader: 'style-loader'
-        }, {
-          loader: 'css-loader' // options: {
-          //   modules: true,
-          //   localIdentName: '[name]__[local]___[hash:base64:5]',
-          // },
-
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            config: {
-              path: _path.default.resolve(ROOT_DIR, './config') // 写到目录即可，文件名强制要求是postcss.config.js
-
-            }
-          }
-        }, {
-          loader: 'less-loader',
-          options: {
-            // sourceMap: process.env.NODE_ENV !== 'production',
-            javascriptEnabled: true
-          }
-        }]
-      }, {
-        test: /\.less$/,
-        include: [/node_modules/, /theme\.less/],
-        use: [{
-          loader: 'style-loader'
-        }, {
-          loader: 'css-loader'
-        }, {
+        use: ['style-loader', 'css-loader', postCssLoader, {
           loader: 'less-loader',
           options: {
             // sourceMap: process.env.NODE_ENV !== 'production',
