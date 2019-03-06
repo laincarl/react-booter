@@ -1,5 +1,6 @@
 /* eslint-disable global-require */
 import path from 'path';
+import merge from 'webpack-merge';
 import { fileExist } from './common';
 import getDefaultConfig from './getDefaultConfig';
 
@@ -15,7 +16,7 @@ export default function (config) {
       console.log(`读取配置文件${configFilePath}`);
       const userConfig = require(configFilePath);
       // console.log(config);
-      return { ...getDefaultConfig(), ...userConfig };
+      return merge.smart(getDefaultConfig(), userConfig);
     }
   } 
   return getDefaultConfig();

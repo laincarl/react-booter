@@ -7,6 +7,8 @@ exports.default = _default;
 
 var _path = _interopRequireDefault(require("path"));
 
+var _webpackMerge = _interopRequireDefault(require("webpack-merge"));
+
 var _common = require("./common");
 
 var _getDefaultConfig = _interopRequireDefault(require("./getDefaultConfig"));
@@ -29,9 +31,7 @@ function _default(config) {
       const userConfig = require(configFilePath); // console.log(config);
 
 
-      return { ...(0, _getDefaultConfig.default)(),
-        ...userConfig
-      };
+      return _webpackMerge.default.smart((0, _getDefaultConfig.default)(), userConfig);
     }
   }
 
