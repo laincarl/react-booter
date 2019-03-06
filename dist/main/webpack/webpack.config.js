@@ -140,35 +140,7 @@ function _default(userConfigFile, dev) {
         }]
       }, {
         test: /\.scss$/,
-        exclude: [/node_modules/],
-        use: [{
-          loader: 'style-loader'
-        }, {
-          loader: 'css-loader',
-          options: {
-            autoprefixer: false
-          }
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            config: {
-              path: _path.default.resolve(ROOT_DIR, './config') // 写到目录即可，文件名强制要求是postcss.config.js
-
-            }
-          }
-        }, {
-          loader: 'sass-loader'
-        }]
-      }, {
-        test: /\.scss$/,
-        include: [/node_modules/],
-        use: [{
-          loader: 'style-loader'
-        }, {
-          loader: 'css-loader'
-        }, {
-          loader: 'sass-loader'
-        }]
+        use: ['style-loader', 'css-loader', postCssLoader, 'sass-loader']
       }, {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,

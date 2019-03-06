@@ -7,7 +7,7 @@ import getBaseConfig from './webpack.config';
 const ROOT_DIR = path.resolve(__dirname, '../../../');
 const PROJECT_ROOT = process.cwd();
 export default function (userConfigFile) {
-  return merge(getBaseConfig(userConfigFile), {
+  return merge.smart({
     mode: 'production',
     entry: path.resolve(ROOT_DIR, './dist/entry/index.js'), 
     devtool: false, 
@@ -22,5 +22,5 @@ export default function (userConfigFile) {
         {from: 'src/www/images', to: 'images'}
       ]), */
     ],
-  });
+  }, getBaseConfig(userConfigFile));
 }
