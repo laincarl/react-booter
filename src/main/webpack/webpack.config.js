@@ -2,10 +2,11 @@ import merge from 'webpack-merge';
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import LessThemePlugin from 'webpack-less-theme-plugin';
 import getBabelConfig from '../../../config/babel.config';
 import getUserConfig from '../utils/getUserConfig';
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const LessThemePlugin = require('webpack-less-theme-plugin');
+
 // const moment = require('moment');
 
 
@@ -20,14 +21,42 @@ const postCssLoader = {
   },
 };
 export default function (userConfigFile, dev) {
-  const { envs, webpack: Config } = getUserConfig(userConfigFile);
+  const { envs, webpack: Config, theme } = getUserConfig(userConfigFile);
   const ENVS = {};
   if (dev) {
     Object.keys(envs).forEach((env) => {
       ENVS[`process.env.${env}`] = JSON.stringify(envs[env]);
     });
   }
-
+  const plugins = [
+    
+    // new ExtractTextPlugin('styles.css'),    
+    // new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin(ENVS),
+    new HtmlWebpackPlugin({
+      title: '首页',
+      inject: true,
+      minify: {
+        html5: true,
+        collapseWhitespace: true,
+        removeComments: true,
+        removeTagWhitespace: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+      },
+      // hash: true,
+      // excludeChunks:['contact'],
+      // chunks: ['manifest', 'vendor', 'app'],
+      // chunks:['vendor','app'],
+      favicon: path.resolve(ROOT_DIR, './template/favicon.ico'),
+      template: path.resolve(ROOT_DIR, './template/index.ejs'), // Load a custom template (ejs by default see the FAQ for details)
+    }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.HotModuleReplacementPlugin(),
+  ];
+  if (theme) {
+    plugins.push(new LessThemePlugin({ theme: path.resolve(PROJECT_ROOT, theme) }));// 使antd主题可以热加载
+  }
   return merge.smart({
     mode: 'development',
     devtool: 'cheap-module-eval-source-map',
@@ -169,52 +198,7 @@ export default function (userConfigFile, dev) {
         },
       ],
     },
-    // devServer: {
-    //   contentBase: path.resolve(ROOT_DIR, 'dist'),
-    //   hot: true,
-    //   compress: true,
-    //   port: 3000,
-    //   host: '0.0.0.0', // 允许局域网通过ip访问
-    //   public: 'localhost:3000', // 加了host之后，open会打开0.0.0.0，所以需要定义public
-    //   stats: 'errors-only',
-    //   open: true,
-    //   historyApiFallback: true, // 支持browerhistory
-    //   // 不需要设置跨域，直接后台设置允许跨域
-    //   // proxy: {
-    //   //   // /test => http://localhost:8000/test
-    //   //   '/api/**': {
-    //   //     target: 'http://localhost:8000',
-    //   //     changeOrigin: true,
-    //   //     // pathRewrite: { '^/api': '' },
-    //   //   },
-    //   // },
-    // },
-    plugins: [
-      // new LessThemePlugin({ theme: path.resolve(ROOT_DIR, './theme.less') }), // 使antd主题可以热加载
-      // new ExtractTextPlugin('styles.css'),    
-      // new webpack.HotModuleReplacementPlugin(),
-      new webpack.DefinePlugin(ENVS),
-      new HtmlWebpackPlugin({
-        title: '首页',
-        inject: true,
-        minify: {
-          html5: true,
-          collapseWhitespace: true,
-          removeComments: true,
-          removeTagWhitespace: true,
-          removeEmptyAttributes: true,
-          removeStyleLinkTypeAttributes: true,
-        },
-        // hash: true,
-        // excludeChunks:['contact'],
-        // chunks: ['manifest', 'vendor', 'app'],
-        // chunks:['vendor','app'],
-        favicon: path.resolve(ROOT_DIR, './template/favicon.ico'),
-        template: path.resolve(ROOT_DIR, './template/index.ejs'), // Load a custom template (ejs by default see the FAQ for details)
-      }),
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-      new webpack.HotModuleReplacementPlugin(),
-    ],
+    plugins,
   }, Config);
 }
 
