@@ -48,7 +48,7 @@ function _default(userConfigFile, dev) {
     });
   }
 
-  return (0, _webpackMerge.default)(Config, {
+  return _webpackMerge.default.smart({
     mode: 'development',
     devtool: 'cheap-module-eval-source-map',
     entry: {
@@ -213,5 +213,5 @@ function _default(userConfigFile, dev) {
       template: _path.default.resolve(ROOT_DIR, './template/index.ejs') // Load a custom template (ejs by default see the FAQ for details)
 
     }), new _webpack.default.IgnorePlugin(/^\.\/locale$/, /moment$/), new _webpack.default.HotModuleReplacementPlugin()]
-  });
+  }, Config);
 }

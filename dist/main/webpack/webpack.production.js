@@ -22,7 +22,7 @@ const ROOT_DIR = _path.default.resolve(__dirname, '../../../');
 const PROJECT_ROOT = process.cwd();
 
 function _default(userConfigFile) {
-  return (0, _webpackMerge.default)((0, _webpack2.default)(userConfigFile), {
+  return _webpackMerge.default.smart({
     mode: 'production',
     entry: _path.default.resolve(ROOT_DIR, './dist/entry/index.js'),
     devtool: false,
@@ -31,5 +31,5 @@ function _default(userConfigFile) {
     }), new _cleanWebpackPlugin.default(['dist'], {
       root: PROJECT_ROOT
     })]
-  });
+  }, (0, _webpack2.default)(userConfigFile));
 }
