@@ -165,11 +165,7 @@ export default function (userConfigFile, dev) {
           exclude: /node_modules/,
           use: [{
             loader: 'babel-loader',
-            options: getBabelConfig(),
-            // query: {
-            //   plugins: [['import', { distraryName: 'antd', style: true }]], 
-            // style: true 会加载 less 文件 style: 'css' 会加载 css 文件
-            // },
+            options: getBabelConfig(),            
           },
           ],
         },

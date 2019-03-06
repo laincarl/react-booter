@@ -1,12 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import { hot } from 'react-hot-loader';
-import Project from 'D:\\Desktop\\todo\\booter\\booter-dev\\src\\index.js';
+import { hot } from 'react-hot-loader/root';
 
 class App extends Component {
   render() {
-    return (<Fragment>
-      <Project />
-            </Fragment>);
+    return (<Fragment />);
   }
 }
-export default hot(module)(App);
+export default hot()(App);

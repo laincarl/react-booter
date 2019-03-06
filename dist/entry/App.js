@@ -7,7 +7,7 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _reactHotLoader = require("react-hot-loader");
+var _root = require("react-hot-loader/root");
 
 var _index = _interopRequireDefault(require("D:\\Desktop\\todo\\booter\\booter-dev\\src\\index.js"));
 
@@ -54,6 +54,6 @@ function (_Component) {
   return App;
 }(_react.Component);
 
-var _default = (0, _reactHotLoader.hot)(module)(App);
+var _default = (0, _root.hot)(App);
 
 exports.default = _default;

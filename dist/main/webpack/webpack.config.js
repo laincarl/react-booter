@@ -176,11 +176,7 @@ function _default(userConfigFile, dev) {
         exclude: /node_modules/,
         use: [{
           loader: 'babel-loader',
-          options: (0, _babel.default)() // query: {
-          //   plugins: [['import', { distraryName: 'antd', style: true }]], 
-          // style: true 会加载 less 文件 style: 'css' 会加载 css 文件
-          // },
-
+          options: (0, _babel.default)()
         }]
       }, {
         test: /\.(ttf|eot|svg|woff|woff2)$/,
