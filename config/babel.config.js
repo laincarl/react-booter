@@ -13,7 +13,7 @@ module.exports = function getBabelConfig(api, withoutHot) {
     require.resolve('@babel/plugin-syntax-dynamic-import'),
     require.resolve('@babel/plugin-proposal-export-namespace-from'),
     require.resolve('@babel/plugin-proposal-export-default-from'),
-    require.resolve('@babel/plugin-proposal-optional-chaining'),       
+    require.resolve('@babel/plugin-proposal-optional-chaining'),
     [
       require.resolve('@babel/plugin-proposal-decorators'),
       {
@@ -29,9 +29,18 @@ module.exports = function getBabelConfig(api, withoutHot) {
     [
       require.resolve('babel-plugin-import'),
       {
+        libraryName: 'choerodon-ui',
+        style: true,
+      },
+      'choerodon-ui',
+    ],
+    [
+      require.resolve('babel-plugin-import'),
+      {
         libraryName: 'antd',
         style: true,
       },
+      'antd',
     ],
   ];
   if (!withoutHot) {
