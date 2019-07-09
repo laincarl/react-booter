@@ -10,7 +10,7 @@ export default function (userConfigFile) {
   return merge.smart(getBaseConfig(userConfigFile), {
     mode: 'production',
     entry: path.resolve(ROOT_DIR, './dist/entry/index.js'),
-    devtool: false,
+    devtool: 'hidden-source-map',
     plugins: [
       new webpack.LoaderOptionsPlugin({
         minimize: true,
