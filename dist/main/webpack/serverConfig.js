@@ -12,8 +12,6 @@ var _default = {
   inline: false,
   compress: true,
   disableHostCheck: true,
-  // stats: "normal",
-  // contentBase: path.resolve(ROOT_DIR, 'dist'),
   contentBase: path.join(process.cwd(), 'dist'),
   hot: true,
   publicPath: '/',
@@ -24,15 +22,6 @@ var _default = {
   stats: 'errors-only',
   open: true,
   historyApiFallback: true // 支持browerhistory
-  // 不需要设置跨域，直接后台设置允许跨域
-  // proxy: {
-  //   // /test => http://localhost:8000/test
-  //   '/api/**': {
-  //     target: 'http://localhost:8000',
-  //     changeOrigin: true,
-  //     // pathRewrite: { '^/api': '' },
-  //   },
-  // },
 
 };
 exports.default = _default;

@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 import path from 'path';
 import merge from 'webpack-merge';
 import { fileExist } from './common';

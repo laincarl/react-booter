@@ -25,11 +25,12 @@ function _default(userConfigFile) {
   return _webpackMerge.default.smart((0, _webpack2.default)(userConfigFile), {
     mode: 'production',
     entry: _path.default.resolve(ROOT_DIR, './dist/entry/index.js'),
-    devtool: false,
+    devtool: 'hidden-source-map',
     plugins: [new _webpack.default.LoaderOptionsPlugin({
       minimize: true
     }), new _cleanWebpackPlugin.default(['dist'], {
       root: PROJECT_ROOT
-    })]
+    }) // build之前清理dist文件夹
+    ]
   });
 }

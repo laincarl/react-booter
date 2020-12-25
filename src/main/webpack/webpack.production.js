@@ -16,11 +16,6 @@ export default function (userConfigFile) {
         minimize: true,
       }),
       new CleanWebpackPlugin(['dist'], { root: PROJECT_ROOT }), // build之前清理dist文件夹
-      // Transfer Files
-      /* new CopyWebpackPlugin([
-        {from: 'src/www/css', to: 'css'},
-        {from: 'src/www/images', to: 'images'}
-      ]), */
     ],
   });
 }

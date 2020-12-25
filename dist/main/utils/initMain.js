@@ -73,8 +73,7 @@ async function initMain(userConfigFile) {
   const routes = hasMain ? '<Project />' : '<div>react booter</div>'; // 获取用户定义环境变量
 
   const UserEnvs = (0, _getUserConfig.default)(userConfigFile).envs;
-  const EnvStr = Object.keys((0, _getUserConfig.default)(userConfigFile).envs).map(env => // process.env[env] = JSON.stringify(UserEnvs[env]);
-  `${env}:process.env.${env} || '${env}'`);
+  const EnvStr = Object.keys((0, _getUserConfig.default)(userConfigFile).envs).map(env => `${env}:process.env.${env} || '${env}'`);
   const ENVS = `{${EnvStr}}`;
   console.log(UserEnvs, ENVS);
   await CreateFiles(AppTemplate, AppTargetPath, {

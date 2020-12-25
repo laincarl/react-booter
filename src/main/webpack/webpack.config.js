@@ -5,10 +5,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import LessThemePlugin from 'webpack-less-theme-plugin';
 import getBabelConfig from '../../../config/babel.config';
 import getUserConfig from '../utils/getUserConfig';
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-// const moment = require('moment');
-
 
 const ROOT_DIR = path.resolve(__dirname, '../../../');
 const PROJECT_ROOT = process.cwd();
@@ -29,9 +25,6 @@ export default function (userConfigFile, dev) {
     });
   }
   const plugins = [
-    
-    // new ExtractTextPlugin('styles.css'),    
-    // new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin(ENVS),
     new HtmlWebpackPlugin({
       title: '首页',
@@ -44,10 +37,6 @@ export default function (userConfigFile, dev) {
         removeEmptyAttributes: true,
         removeStyleLinkTypeAttributes: true,
       },
-      // hash: true,
-      // excludeChunks:['contact'],
-      // chunks: ['manifest', 'vendor', 'app'],
-      // chunks:['vendor','app'],
       favicon: path.resolve(ROOT_DIR, './template/favicon.ico'),
       template: path.resolve(ROOT_DIR, './template/index.ejs'), // Load a custom template (ejs by default see the FAQ for details)
     }),
@@ -66,7 +55,6 @@ export default function (userConfigFile, dev) {
         'webpack/hot/only-dev-server', '@babel/polyfill',
         path.resolve(ROOT_DIR, './dist/entry/index.js'),
       ],
-      // vendor: ['react', 'react-dom'], //分离第三方库
     },
     output: {
       path: path.resolve(PROJECT_ROOT, 'dist'), // 输出至项目目录

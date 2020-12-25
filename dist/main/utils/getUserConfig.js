@@ -15,7 +15,6 @@ var _getDefaultConfig = _interopRequireDefault(require("./getDefaultConfig"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* eslint-disable global-require */
 function _default(config) {
   const PROJECT_ROOT = process.cwd(); // 如果存在配置文件
 

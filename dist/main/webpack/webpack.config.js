@@ -21,8 +21,6 @@ var _getUserConfig = _interopRequireDefault(require("../utils/getUserConfig"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const moment = require('moment');
 const ROOT_DIR = _path.default.resolve(__dirname, '../../../');
 
 const PROJECT_ROOT = process.cwd();
@@ -50,9 +48,7 @@ function _default(userConfigFile, dev) {
     });
   }
 
-  const plugins = [// new ExtractTextPlugin('styles.css'),    
-  // new webpack.HotModuleReplacementPlugin(),
-  new _webpack.default.DefinePlugin(ENVS), new _htmlWebpackPlugin.default({
+  const plugins = [new _webpack.default.DefinePlugin(ENVS), new _htmlWebpackPlugin.default({
     title: '首页',
     inject: true,
     minify: {
@@ -63,10 +59,6 @@ function _default(userConfigFile, dev) {
       removeEmptyAttributes: true,
       removeStyleLinkTypeAttributes: true
     },
-    // hash: true,
-    // excludeChunks:['contact'],
-    // chunks: ['manifest', 'vendor', 'app'],
-    // chunks:['vendor','app'],
     favicon: _path.default.resolve(ROOT_DIR, './template/favicon.ico'),
     template: _path.default.resolve(ROOT_DIR, './template/index.ejs') // Load a custom template (ejs by default see the FAQ for details)
 
@@ -82,8 +74,7 @@ function _default(userConfigFile, dev) {
     mode: 'development',
     devtool: 'cheap-module-eval-source-map',
     entry: {
-      app: [`webpack-dev-server/client?http://localhost:${Config.devServer.port || 3000}/`, 'webpack/hot/only-dev-server', '@babel/polyfill', _path.default.resolve(ROOT_DIR, './dist/entry/index.js')] // vendor: ['react', 'react-dom'], //分离第三方库
-
+      app: [`webpack-dev-server/client?http://localhost:${Config.devServer.port || 3000}/`, 'webpack/hot/only-dev-server', '@babel/polyfill', _path.default.resolve(ROOT_DIR, './dist/entry/index.js')]
     },
     output: {
       path: _path.default.resolve(PROJECT_ROOT, 'dist'),
@@ -143,7 +134,8 @@ function _default(userConfigFile, dev) {
       child_process: 'empty'
     },
     resolve: {
-      modules: [_path.default.resolve(ROOT_DIR, 'node_modules'), 'node_modules', _path.default.resolve(process.cwd(), 'node_modules')],
+      modules: [_path.default.resolve(ROOT_DIR, 'node_modules'), 'node_modules', _path.default.resolve(process.cwd(), 'node_modules') // path.resolve(process.cwd(), 'node_modules/react-booter/node_modules'),     
+      ],
       // 优化webpack文件搜索范围
       extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', '.less'],
       alias: {
